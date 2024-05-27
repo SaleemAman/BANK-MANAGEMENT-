@@ -1,0 +1,34 @@
+private static void performWithdrawal() {
+        System.out.print("Enter account number: ");
+        String accountNumber = scanner.nextLine();
+        System.out.print("Enter amount to withdraw: ");
+        double amount = scanner.nextDouble();
+        Account account = findAccount(accountNumber);
+        if (account != null) {
+            account.withdraw(amount);
+            System.out.println("Withdrawal Transaction Completed.");
+        } else {
+            System.out.println("Account not found.");
+        }
+    }
+
+    private static void viewBalance() {
+        System.out.print("Enter account number: ");
+        String accountNumber = scanner.nextLine();
+        Account account = findAccount(accountNumber);
+        if (account != null) {
+            System.out.println("Account Balance: " + account.getBalance());
+        } else {
+            System.out.println("Account not found.");
+        }
+    }
+
+    private static Account findAccount(String accountNumber) {
+        for (Account account : accounts) {
+            if (account.getAccountNumber().equals(accountNumber)) {
+                return account;
+            }
+        }
+        return null;
+    }
+}
