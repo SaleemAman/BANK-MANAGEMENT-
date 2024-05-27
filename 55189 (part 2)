@@ -1,0 +1,77 @@
+public class BankManagementSystem {
+    private static ArrayList<Account> accounts = new ArrayList<>();
+    private static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        boolean exit = false;
+        while (!exit) {
+            System.out.println("1. Create Savings Account");
+            System.out.println("2. Create Current Account");
+            System.out.println("3. Deposit");
+            System.out.println("4. Withdraw");
+            System.out.println("5. View Balance");
+            System.out.println("6. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 1:
+                    createSavingsAccount();
+                    break;
+                case 2:
+                    createCurrentAccount();
+                    break;
+                case 3:
+                    performDeposit();
+                    break;
+                case 4:
+                    performWithdrawal();
+                    break;
+                case 5:
+                    viewBalance();
+                    break;
+                case 6:
+                    exit = true;
+                    System.out.println("Exiting...");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+        scanner.close();
+    }
+
+    private static void createSavingsAccount() {
+        System.out.print("Enter account number: ");
+        String accountNumber = scanner.nextLine();
+        System.out.print("Enter initial balance: ");
+        double balance = scanner.nextDouble();
+        accounts.add(new SavingsAccount(accountNumber, balance));
+        System.out.println("Savings Account created successfully.");
+    }
+
+    private static void createCurrentAccount() {
+        System.out.print("Enter account number: ");
+        String accountNumber = scanner.nextLine();
+        System.out.print("Enter initial balance: ");
+        double balance = scanner.nextDouble();
+        System.out.print("Enter overdraft limit: ");
+        double overdraftLimit = scanner.nextDouble();
+        accounts.add(new CurrentAccount(accountNumber, balance, overdraftLimit));
+        System.out.println("Current Account created successfully.");
+    }
+
+    private static void performDeposit() {
+        System.out.print("Enter account number: ");
+        String accountNumber = scanner.nextLine();
+        System.out.print("Enter amount to deposit: ");
+        double amount = scanner.nextDouble();
+        Account account = findAccount(accountNumber);
+        if (account != null) {
+            account.deposit(amount);
+            System.out.println("Deposit Transaction Completed.");
+        } else {
+            System.out.println("Account not found.");
+        }
+    }
